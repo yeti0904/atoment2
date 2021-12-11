@@ -27,14 +27,19 @@ void builtin_push(ATM::Language_Components atm, ATM::Arglist args) {
 		exit(1);
 	}
 	for (auto arg : args) {
-		ATM::Arglist test;
-		test.push_back(65);
-		try {
-			atm.stack.push_back(get<ATM_Integer>(test[0]));
-		}
-		catch (const std::bad_variant_access&) {
-			printf("Error: push requires integer arguments\n");
-			exit(1);
+		switch (arg.index()) {
+			case 0: {
+				printf("Error: push requires an integer or address\n");
+				break;
+			}
+			case 1: {
+				atm.stack.push_back(get<ATM_Integer>(arg));
+				break;
+			}
+			case 2: {
+				atm.stack.push_back(atm.stack[get<ATM_Pointer>(arg).address]);
+				break;
+			}
 		}
 	}
 }

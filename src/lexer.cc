@@ -81,6 +81,7 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 				break;
 			}
 			case '/': { // comment
+				if (!inString)
 				switch (source[i+1]) {
 					case '/': { // single line comment
 						while (source[i] != '\n') {

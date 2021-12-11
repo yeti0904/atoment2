@@ -12,13 +12,18 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 		++ column;
 		switch (source[i]) {
 			case ':': { // function token
-				tokens.push_back(Lexer::Token(Lexer::TokenType::Function, reading, line, column));
-				reading = "";
+				if (!inString) {
+					tokens.push_back(Lexer::Token(Lexer::TokenType::Function, reading, line, column));
+					reading = "";
+				}
+				else {
+					reading += source[i];
+				}
 				break;
 			}
 			case ']':
 			case ';': { // end of statement
-				if ((reading[0] == '"') && (reading[reading.length()-1] == '"')) {
+				if ((!inString) && (reading[0] == '"') && (reading[reading.length()-1] == '"')) {
 					tokens.push_back(Lexer::Token(Lexer::TokenType::String, reading.substr(1, reading.length() - 2), line, column));
 				}
 				else if ((reading[0] == '\'') && (reading[reading.length()-1] == '\'')) {
@@ -40,13 +45,20 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 				break;
 			}
 			case '[': { // start of keyword
-				tokens.push_back(Lexer::Token(Lexer::TokenType::Keyword, reading, line, column));
-				reading = "";
+				if (!inString) {
+					tokens.push_back(Lexer::Token(Lexer::TokenType::Keyword, reading, line, column));
+					reading = "";
+				}
 				break;
 			}
 			case ',': { // argument separator
+				if (inString) {
+					reading += source[i];
+					break;
+				}
 				if ((reading[0] == '"') && (reading[reading.length()-1] == '"')) {
 					tokens.push_back(Lexer::Token(Lexer::TokenType::String, reading.substr(1, reading.length() - 2), line, column));
+					reading = "";
 				}
 				else if ((reading[0] == '\'') && (reading[reading.length()-1] == '\'')) {
 					if (reading.length() == 3)

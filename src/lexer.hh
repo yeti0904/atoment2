@@ -1,3 +1,4 @@
+#pragma once
 #include "_components.hh"
 
 namespace Lexer {

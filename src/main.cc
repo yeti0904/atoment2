@@ -3,6 +3,8 @@
 #include "_components.hh"
 #include "fs.hh"
 #include "lexer.hh"
+#include "interpreter.hh"
+#include "atoment.hh"
 
 int main(int argc, char** argv) {
 	// convert argv into string vector
@@ -40,8 +42,16 @@ int main(int argc, char** argv) {
 	
 	// lex the source code
 	vector <Lexer::Token> tokens = Lexer::tokenize(file);
-	for (size_t i = 0; i<tokens.size(); ++i) {
+	/*for (size_t i = 0; i<tokens.size(); ++i) {
 		printf("{%d, %s, %ld, %ld}\n", (int)tokens[i].type, tokens[i].value.c_str(), tokens[i].line, tokens[i].column);
-	}
+	}*/
+
+	// setup built in functions
+	ATM::Language_Components atm = ATM::Init();
+	ATM_AddBuiltInFunctions(atm);
+
+	// run interpreter
+	interpretTokens(tokens, atm);
+
 	return 0;
 }

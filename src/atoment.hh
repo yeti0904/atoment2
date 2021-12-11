@@ -1,8 +1,13 @@
 #pragma once
 #include "_components.hh"
 
+struct ATM_Pointer {
+	ATM_Integer address;
+	ATM_Pointer(ATM_Integer addr): address(addr) {};
+};
+
 namespace ATM {
-	typedef vector <variant <string, ATM_Integer>> Arglist;
+	typedef vector <variant <string, ATM_Integer, ATM_Pointer>> Arglist;
 	struct Language_Components;
 	typedef void (Function)(Language_Components, Arglist);
 	struct Language_Components {

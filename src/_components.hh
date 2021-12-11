@@ -7,6 +7,7 @@
 #include <unordered_map>
 
 using std::get;
+using std::stoi;
 using std::string;
 using std::vector;
 using std::variant;

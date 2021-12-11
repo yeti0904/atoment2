@@ -38,7 +38,19 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 					tokens.push_back(Lexer::Token(Lexer::TokenType::Number, reading, line, column));
 				}
 				else {
-					tokens.push_back(Lexer::Token(Lexer::TokenType::Identifier, reading, line, column));
+					switch (reading[0]) {
+						case '@': {
+							tokens.push_back(Lexer::Token(Lexer::TokenType::Pointer, reading.substr(1), line, column));
+							break;
+						}
+						case '^': {
+							tokens.push_back(Lexer::Token(Lexer::TokenType::Dereference, reading.substr(1), line, column));
+							break;
+						}
+						default: {
+							tokens.push_back(Lexer::Token(Lexer::TokenType::Identifier, reading, line, column));
+						}
+					}
 				}
 				tokens.push_back(Lexer::Token(Lexer::TokenType::EndOfArguments, "", line, column));
 				reading = "";
@@ -72,7 +84,19 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 					tokens.push_back(Lexer::Token(Lexer::TokenType::Number, reading, line, column));
 				}
 				else {
-					tokens.push_back(Lexer::Token(Lexer::TokenType::Identifier, reading, line, column));
+					switch (reading[0]) {
+						case '@': {
+							tokens.push_back(Lexer::Token(Lexer::TokenType::Pointer, reading.substr(1), line, column));
+							break;
+						}
+						case '^': {
+							tokens.push_back(Lexer::Token(Lexer::TokenType::Dereference, reading.substr(1), line, column));
+							break;
+						}
+						default: {
+							tokens.push_back(Lexer::Token(Lexer::TokenType::Identifier, reading, line, column));
+						}
+					}
 				}
 				break;
 			}

@@ -18,12 +18,20 @@ int main(int argc, char** argv) {
 		return 0;
 	}
 
+	// settings
+	bool lexerDebug = false;
+
 	string programpath;
 	// loop through args
 	for (size_t i = 1; i<args.size(); ++i) {
 		// if arg is a file
 		if (args[i][0] != '-') {
 			programpath = args[i];
+		}
+		else {
+			if (args[i] == "--lexer-debug") {
+				lexerDebug = true;
+			}
 		}
 	}
 
@@ -42,9 +50,12 @@ int main(int argc, char** argv) {
 	
 	// lex the source code
 	vector <Lexer::Token> tokens = Lexer::tokenize(file);
-	/*for (size_t i = 0; i<tokens.size(); ++i) {
-		printf("{%d, %s, %ld, %ld}\n", (int)tokens[i].type, tokens[i].value.c_str(), tokens[i].line, tokens[i].column);
-	}*/
+	if (lexerDebug) {
+		for (size_t i = 0; i<tokens.size(); ++i) {
+			printf("{%d, %s, %ld, %ld}\n", (int)tokens[i].type, tokens[i].value.c_str(), tokens[i].line, tokens[i].column);
+		}
+		exit(0);
+	}
 
 	// setup built in functions
 	ATM::Language_Components atm = ATM::Init();

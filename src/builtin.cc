@@ -9,6 +9,11 @@ void builtin_println(ATM::Language_Components atm, ATM::Arglist args) {
 		if (arg.index() == 0) {
 			atm.stack[atm.variables["MEM_ACC"]] = printf("%s", get<0>(arg).c_str());
 		}
+		else if (arg.index() == 2) {
+			for (size_t i = atm.stack[get<2>(arg).address]; atm.stack[i] != 0; ++i) {
+				putchar(atm.stack[i]);
+			}
+		}
 		else {
 			atm.stack[atm.variables["MEM_ACC"]] = printf("%u", get<1>(arg));
 		}
@@ -22,11 +27,15 @@ void builtin_push(ATM::Language_Components atm, ATM::Arglist args) {
 		exit(1);
 	}
 	for (auto arg : args) {
-		if (arg.index() == 0) {
+		ATM::Arglist test;
+		test.push_back(65);
+		try {
+			atm.stack.push_back(get<ATM_Integer>(test[0]));
+		}
+		catch (const std::bad_variant_access&) {
 			printf("Error: push requires integer arguments\n");
 			exit(1);
 		}
-		atm.stack.push_back(get<1>(arg));
 	}
 }
 

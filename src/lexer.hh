@@ -3,13 +3,15 @@
 
 namespace Lexer {
 	enum class TokenType {
-		Function = 0,
-		Keyword = 1,
-		String = 2,
-		Number = 3,
-		Identifier = 4,
+		Function       = 0,
+		Keyword        = 1,
+		String         = 2,
+		Number         = 3,
+		Identifier     = 4,
 		EndOfArguments = 5,
-		EndOfFile = 6
+		EndOfFile      = 6,
+		Pointer        = 7,
+		Dereference    = 8
 	};
 	struct Token {
 		TokenType type;

@@ -38,7 +38,7 @@ void interpretTokens(vector <Lexer::Token> tokens, ATM::Language_Components& atm
 							}
 							case Lexer::TokenType::Pointer: {
 								try {
-									arglist.push_back(ATM_Pointer(stoi(tokens[j].value)));
+									arglist.push_back(ATM_Pointer(atm.variables[tokens[j].value]));
 								}
 								catch (const std::invalid_argument& ia) {
 									printf("Invalid argument at line %ld col %ld\n", tokens[j].line, tokens[j].column);

@@ -23,7 +23,8 @@ void interpretTokens(vector <Lexer::Token> tokens, ATM::Language_Components& atm
 								arglist.push_back(tokens[j].value);
 								break;
 							}
-							case Lexer::TokenType::Function: {
+							case Lexer::TokenType::Identifier: {
+								arglist.push_back(atm.variables[tokens[j].value]);
 								break;
 							}
 							default: {

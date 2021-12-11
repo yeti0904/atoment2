@@ -96,6 +96,9 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 						break;
 					}
 				}
+				else {
+					reading += source[i];
+				}
 				break;
 			}
 			default: {

@@ -33,8 +33,7 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 					tokens.push_back(Lexer::Token(Lexer::TokenType::Number, reading, line, column));
 				}
 				else {
-					printf("Error: Unexpected token '%s'\nLine %lu Col %lu\n", reading.c_str(), line, column);
-					exit(1);
+					tokens.push_back(Lexer::Token(Lexer::TokenType::Identifier, reading, line, column));
 				}
 				tokens.push_back(Lexer::Token(Lexer::TokenType::EndOfArguments, "", line, column));
 				reading = "";
@@ -61,8 +60,7 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 					tokens.push_back(Lexer::Token(Lexer::TokenType::Number, reading, line, column));
 				}
 				else {
-					printf("Error: Unexpected token '%s'\nLine %lu Col %lu\n", reading.c_str(), line, column);
-					exit(1);
+					tokens.push_back(Lexer::Token(Lexer::TokenType::Identifier, reading, line, column));
 				}
 				break;
 			}
@@ -79,6 +77,23 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 			case ' ': {
 				if (inString) {
 					reading += source[i];
+				}
+				break;
+			}
+			case '/': { // comment
+				switch (source[i+1]) {
+					case '/': { // single line comment
+						while (source[i] != '\n') {
+							++i;
+						}
+						break;
+					}
+					case '*': { // multi line comment
+						while (source[i] != '*' || source[i+1] != '/') {
+							++i;
+						}
+						break;
+					}
 				}
 				break;
 			}

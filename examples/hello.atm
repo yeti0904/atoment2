@@ -1,1 +1,2 @@
-print: "hi";
+def [mynum, 65]
+println: mynum;

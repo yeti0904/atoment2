@@ -10,3 +10,6 @@ build:
 release:
 	mkdir -p bin
 	$(CC) $(src) $(args) $(out) -O3
+
+clean:
+	rm -rf bin

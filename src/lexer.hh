@@ -6,8 +6,9 @@ namespace Lexer {
 		Keyword = 1,
 		String = 2,
 		Number = 3,
-		EndOfArguments = 4,
-		EndOfFile = 5
+		Identifier = 4,
+		EndOfArguments = 5,
+		EndOfFile = 6
 	};
 	struct Token {
 		TokenType type;

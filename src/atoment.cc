@@ -15,6 +15,7 @@ ATM::Language_Components ATM::Init() {
 	components.variables["true"]      = 1;
 	components.variables["false"]     = 0;
 	components.variables["MEM_START"] = 2;
+	components.variables["MEM_SIZE"]  = components.stack.size();
 	
 	return components;
 }

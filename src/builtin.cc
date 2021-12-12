@@ -1,7 +1,7 @@
 #include <cstdio>
 #include "atoment.hh"
 
-void builtin_println(ATM::Language_Components atm, ATM::Arglist args) {
+void builtin_println(ATM::Language_Components& atm, ATM::Arglist args) {
 	if (args.size() < 1) {
 		printf("Error: println requires at least one argument\n");
 	}
@@ -21,7 +21,7 @@ void builtin_println(ATM::Language_Components atm, ATM::Arglist args) {
 	putchar(10);
 }
 
-void builtin_push(ATM::Language_Components atm, ATM::Arglist args) {
+void builtin_push(ATM::Language_Components& atm, ATM::Arglist args) {
 	if (args.size() < 1) {
 		printf("Error: push requires at least one argument\n");
 		exit(1);
@@ -37,14 +37,14 @@ void builtin_push(ATM::Language_Components atm, ATM::Arglist args) {
 				break;
 			}
 			case 2: {
-				atm.stack.push_back(atm.stack[get<ATM_Pointer>(arg).address]);
+				atm.stack.push_back(get<ATM_Pointer>(arg).address);
 				break;
 			}
 		}
 	}
 }
 
-void builtin_pop(ATM::Language_Components atm, ATM::Arglist args) {
+void builtin_pop(ATM::Language_Components& atm, ATM::Arglist args) {
 	if (args.size() > 0) {
 		printf("Error: pop requires no arguments\n");
 		exit(1);
@@ -52,7 +52,7 @@ void builtin_pop(ATM::Language_Components atm, ATM::Arglist args) {
 	atm.stack.pop_back();
 }
 
-void builtin_putchar(ATM::Language_Components atm, ATM::Arglist args) {
+void builtin_putchar(ATM::Language_Components& atm, ATM::Arglist args) {
 	if (args.size() < 1) {
 		printf("Error: putchar requires at least one argument\n");
 		exit(1);
@@ -63,5 +63,19 @@ void builtin_putchar(ATM::Language_Components atm, ATM::Arglist args) {
 			exit(1);
 		}
 		atm.stack[atm.variables["MEM_ACC"]] = putchar(get<1>(arg));
+	}
+}
+
+void builtin_create_bytes(ATM::Language_Components& atm, ATM::Arglist args) {
+	if (args.size() != 1) {
+		printf("Error: create_bytes requires one argument\n");
+		exit(1);
+	}
+	if (args[0].index() != 1) {
+		printf("Error: create_bytes requires an integer argument\n");
+		exit(1);
+	}
+	for (size_t i = 0; i < get<ATM_Integer>(args[0]); ++i) {
+		atm.stack.push_back(0);
 	}
 }

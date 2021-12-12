@@ -20,6 +20,7 @@ int main(int argc, char** argv) {
 
 	// settings
 	bool lexerDebug = false;
+	bool showStack  = false;
 
 	string programpath;
 	// loop through args
@@ -31,6 +32,9 @@ int main(int argc, char** argv) {
 		else {
 			if (args[i] == "--lexer-debug") {
 				lexerDebug = true;
+			}
+			else if (args[i] == "--show-stack") {
+				showStack = true;
 			}
 		}
 	}
@@ -63,6 +67,14 @@ int main(int argc, char** argv) {
 
 	// run interpreter
 	interpretTokens(tokens, atm);
+
+	if (showStack) {
+		printf("Program finished, memory reached size %ld\n", atm.stack.size());
+		for (size_t i = 0; i<atm.stack.size(); ++i) {
+			printf("{%d}, ", atm.stack[i]);
+		}
+		putchar(10);
+	}
 
 	return 0;
 }

@@ -9,7 +9,7 @@ struct ATM_Pointer {
 namespace ATM {
 	typedef vector <variant <string, ATM_Integer, ATM_Pointer>> Arglist;
 	struct Language_Components;
-	typedef void (Function)(Language_Components, Arglist);
+	typedef void (Function)(Language_Components&, Arglist);
 	struct Language_Components {
 		unordered_map <string, Function*>   functions;
 		unordered_map <string, Function*>   keywords;

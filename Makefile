@@ -1,6 +1,6 @@
 CC   = g++
 src  = $(wildcard src/*.cc)
-args = -Wall -Wextra -Werror -pedantic -o
+args = -std=c++17 -Wall -Wextra -Werror -pedantic -o
 out  = bin/atm
 
 build:

@@ -2,6 +2,7 @@
 #include "atoment.hh"
 #include "lexer.hh"
 #include "keywords.hh"
+#include "util.hh"
 
 ATM::Arglist createArguments(size_t &i, vector <Lexer::Token> &tokens, ATM::Language_Components &atm) {
 	ATM::Arglist arglist;
@@ -51,6 +52,8 @@ ATM::Arglist createArguments(size_t &i, vector <Lexer::Token> &tokens, ATM::Lang
 			}
 		}
 	}
+	/*printf("Logging arguments for call %s\n", tokens[i].value.c_str());
+	Util::logArguments(arglist);*/
 	i = j;
 	return arglist;
 }

@@ -79,3 +79,26 @@ void builtin_create_bytes(ATM::Language_Components& atm, ATM::Arglist args) {
 		atm.stack.push_back(0);
 	}
 }
+
+void builtin_add(ATM::Language_Components& atm, ATM::Arglist args) {
+	if (args.size() < 2) {
+		printf("Error: add requires at least two arguments\n");
+		exit(1);
+	}
+	for (auto arg : args) {
+		if ((arg.index() != 1) && (arg.index() != 2)) {
+			printf("Error: add requires integer or pointer arguments\n");
+			exit(1);
+		}
+	}
+	ATM_Integer addby;
+	if (args[1].index() == 1) addby = get <ATM_Integer> (args[1]);
+	else addby = get<2>(args[1]).address;
+
+	if (args[0].index() == 1) { // source isn't a pointer, save the result in MEM_ACC
+		atm.stack[atm.variables["MEM_ACC"]] = get<ATM_Integer>(args[0]) + addby;
+	}
+	else { // source is a pointer, save the result where the pointer is pointing to
+		atm.stack[get<2>(args[0]).address] = atm.stack[get<2>(args[0]).address] + addby;
+	}
+}

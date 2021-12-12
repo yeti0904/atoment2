@@ -1,2 +1,2 @@
-def ["hello", 65]
-println: hello;
+push: 5;
+pop: ;

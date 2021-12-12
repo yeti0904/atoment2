@@ -8,6 +8,7 @@ ATM::Arglist createArguments(size_t &i, vector <Lexer::Token> &tokens, ATM::Lang
 	ATM::Arglist arglist;
 	size_t j = i + 1;
 	for (; tokens[j].type != Lexer::TokenType::EndOfArguments; ++j) {
+		if (tokens[j].value.length() > 0)
 		switch (tokens[j].type) {
 			case Lexer::TokenType::Number: {
 				try {

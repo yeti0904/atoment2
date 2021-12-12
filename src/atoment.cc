@@ -29,4 +29,5 @@ void ATM_AddBuiltInFunctions(ATM::Language_Components &atm) {
 	ATM::RegisterFunction(atm, "pop", builtin_pop);
 	ATM::RegisterFunction(atm, "println", builtin_println);
 	ATM::RegisterFunction(atm, "putchar", builtin_putchar);
+	ATM::RegisterFunction(atm, "add", builtin_add);
 }

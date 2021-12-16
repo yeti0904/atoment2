@@ -80,8 +80,8 @@ void interpretTokens(vector <Lexer::Token> tokens, ATM::Language_Components& atm
 			case Lexer::TokenType::Keyword: {
 				Lexer::Token keyword = tokens[i];
 				ATM::Arglist arglist = createArguments(i, tokens, atm);
-				if (keyword.value == "def") {
-					keyword_def(atm, arglist);
+				if (keyword.value == "let") {
+					keyword_let(atm, arglist);
 				}
 				else if (keyword.value == "delete") {
 					keyword_delete(atm, arglist);

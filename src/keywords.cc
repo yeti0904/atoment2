@@ -1,7 +1,7 @@
 #include "_components.hh"
 #include "atoment.hh"
 
-void keyword_def(ATM::Language_Components& atm, ATM::Arglist args) {
+void keyword_let(ATM::Language_Components& atm, ATM::Arglist args) {
 	if (args.size() != 2) {
 		printf("keyword_def: requires 2 arguments (given %d)\n", (int)args.size());
 		exit(1);

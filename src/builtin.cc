@@ -99,6 +99,75 @@ void builtin_add(ATM::Language_Components& atm, ATM::Arglist args) {
 		atm.stack[atm.variables["MEM_ACC"]] = get<ATM_Integer>(args[0]) + addby;
 	}
 	else { // source is a pointer, save the result where the pointer is pointing to
-		atm.stack[get<2>(args[0]).address] = atm.stack[get<2>(args[0]).address] + addby;
+		atm.stack[get<2>(args[0]).address] += addby;
+	}
+}
+
+void builtin_sub(ATM::Language_Components& atm, ATM::Arglist args) {
+	if (args.size() != 2) {
+		printf("Error: sub requires two arguments\n");
+		exit(1);
+	}
+	for (auto arg : args) {
+		if ((arg.index() != 1) && (arg.index() != 2)) {
+			printf("Error: sub requires integer or pointer arguments\n");
+			exit(1);
+		}
+	}
+	ATM_Integer subby;
+	if (args[1].index() == 1) subby = get <ATM_Integer> (args[1]);
+	else subby = get<2>(args[1]).address;
+
+	if (args[0].index() == 1) { // source isn't a pointer, save the result in MEM_ACC
+		atm.stack[atm.variables["MEM_ACC"]] = get<ATM_Integer>(args[0]) - subby;
+	}
+	else { // source is a pointer, save the result where the pointer is pointing to
+		atm.stack[get<2>(args[0]).address] -= subby;
+	}
+}
+
+void builtin_mul(ATM::Language_Components& atm, ATM::Arglist args) {
+	if (args.size() != 2) {
+		printf("Error: mul requires two arguments\n");
+		exit(1);
+	}
+	for (auto arg : args) {
+		if ((arg.index() != 1) && (arg.index() != 2)) {
+			printf("Error: mul requires integer or pointer arguments\n");
+			exit(1);
+		}
+	}
+	ATM_Integer mulby;
+	if (args[1].index() == 1) mulby = get <ATM_Integer> (args[1]);
+	else mulby = get<2>(args[1]).address;
+
+	if (args[0].index() == 1) { // source isn't a pointer, save the result in MEM_ACC
+		atm.stack[atm.variables["MEM_ACC"]] = get<ATM_Integer>(args[0]) * mulby;
+	}
+	else { // source is a pointer, save the result where the pointer is pointing to
+		atm.stack[get<2>(args[0]).address] *= mulby;
+	}
+}
+
+void builtin_div(ATM::Language_Components& atm, ATM::Arglist args) {
+	if (args.size() != 2) {
+		printf("Error: mul requires two arguments\n");
+		exit(1);
+	}
+	for (auto arg : args) {
+		if ((arg.index() != 1) && (arg.index() != 2)) {
+			printf("Error: mul requires integer or pointer arguments\n");
+			exit(1);
+		}
+	}
+	ATM_Integer divby;
+	if (args[1].index() == 1) divby = get <ATM_Integer> (args[1]);
+	else divby = get<2>(args[1]).address;
+
+	if (args[0].index() == 1) { // source isn't a pointer, save the result in MEM_ACC
+		atm.stack[atm.variables["MEM_ACC"]] = (ATM_Integer)get<ATM_Integer>(args[0]) / divby;
+	}
+	else { // source is a pointer, save the result where the pointer is pointing to
+		atm.stack[get<2>(args[0]).address] = (ATM_Integer) atm.stack[get<2>(args[0]).address] / divby;
 	}
 }

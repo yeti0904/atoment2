@@ -30,4 +30,7 @@ void ATM_AddBuiltInFunctions(ATM::Language_Components &atm) {
 	ATM::RegisterFunction(atm, "println", builtin_println);
 	ATM::RegisterFunction(atm, "putchar", builtin_putchar);
 	ATM::RegisterFunction(atm, "add", builtin_add);
+	ATM::RegisterFunction(atm, "sub", builtin_sub);
+	ATM::RegisterFunction(atm, "mul", builtin_mul);
+	ATM::RegisterFunction(atm, "div", builtin_div);
 }

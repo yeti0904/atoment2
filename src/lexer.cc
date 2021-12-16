@@ -5,10 +5,10 @@
 vector <Lexer::Token> Lexer::tokenize(string source) {
 	vector <Lexer::Token> tokens;
 	string                reading;
-	size_t                line = 1;
-	size_t                column = 0;
+	ATM_Integer           line = 1;
+	ATM_Integer           column = 0;
 	bool                  inString = false;
-	for (size_t i = 0; i<source.length(); ++i) {
+	for (ATM_Integer i = 0; i<source.length(); ++i) {
 		++ column;
 		switch (source[i]) {
 			case ':': { // function token
@@ -30,7 +30,7 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 					if (reading.length() == 3)
 						tokens.push_back(Lexer::Token(Lexer::TokenType::Number, to_string((int)reading[1]), line, column));
 					else {
-						printf("Error: invalid character literal ('%s') at line %lu Col %lu\n", reading.c_str(), line, column);
+						printf("Error: invalid character literal ('%s') at line %u Col %u\n", reading.c_str(), line, column);
 						exit(1);
 					}
 				}
@@ -76,7 +76,7 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 					if (reading.length() == 3)
 						tokens.push_back(Lexer::Token(Lexer::TokenType::Number, to_string((int)reading[1]), line, column));
 					else {
-						printf("Error: invalid character literal ('%s') at line %lu Col %lu\n", reading.c_str(), line, column);
+						printf("Error: invalid character literal ('%s') at line %u Col %u\n", reading.c_str(), line, column);
 						exit(1);
 					}
 				}

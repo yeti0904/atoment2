@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
 	vector <Lexer::Token> tokens = Lexer::tokenize(file);
 	if (lexerDebug) {
 		for (size_t i = 0; i<tokens.size(); ++i) {
-			printf("{%d, %s, %ld, %ld}\n", (int)tokens[i].type, tokens[i].value.c_str(), tokens[i].line, tokens[i].column);
+			printf("{%d, %s, %d, %d}\n", (int)tokens[i].type, tokens[i].value.c_str(), tokens[i].line, tokens[i].column);
 		}
 		exit(0);
 	}
@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
 	interpretTokens(tokens, atm);
 
 	if (showStack) {
-		printf("Program finished, memory reached size %ld\n", atm.stack.size());
+		printf("Program finished, memory reached size %d\n", (int)atm.stack.size());
 		for (size_t i = 0; i<atm.stack.size(); ++i) {
 			printf("{%d}, ", atm.stack[i]);
 		}

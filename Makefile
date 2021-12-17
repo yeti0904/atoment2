@@ -1,27 +1,25 @@
-ifeq ($(PLATFORM), windows)
+ifneq ($(filter $(PLATFORM), windows win64),)
 CC   = x86_64-w64-mingw32-g++
+else ifeq ($(PLATFORM), win32)
+CC   = i686-w64-mingw32-g++
 else
 CC   = g++
 endif
 src  = $(wildcard src/*.cc)
-args = -std=c++17 -Wall -Wextra -Werror -pedantic -o
-ifeq ($(PLATFORM), windows)
-out  = bin/atm.exe
-else
+args = -std=c++17 -Wall -Wextra -Werror -pedantic -static -static-libgcc -static-libstdc++
 out  = bin/atm
-endif
 
 build:
 	mkdir -p bin
-	$(CC) $(src) $(args) $(out) -s
+	$(CC) $(src) $(args) -o $(out) -s
 
 debug:
 	mkdir -p bin
-	$(CC) $(src) $(args) $(out) -g
+	$(CC) $(src) $(args) -o $(out) -g
 
 release:
 	mkdir -p bin
-	$(CC) $(src) $(args) $(out) -O3
+	$(CC) $(src) $(args) -o $(out) -O3
 
 clean:
 	rm -rf bin

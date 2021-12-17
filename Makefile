@@ -1,5 +1,7 @@
-ifeq ($(PLATFORM), windows)
+ifneq ($(filter $(PLATFORM), windows win64),)
 CC   = x86_64-w64-mingw32-g++
+else ifeq ($(PLATFORM), win32)
+CC   = i686-w64-mingw32-g++
 else
 CC   = g++
 endif

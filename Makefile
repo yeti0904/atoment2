@@ -7,11 +7,7 @@ CC   = g++
 endif
 src  = $(wildcard src/*.cc)
 args = -std=c++17 -Wall -Wextra -Werror -pedantic -o
-ifeq ($(PLATFORM), windows)
-out  = bin/atm.exe
-else
 out  = bin/atm
-endif
 
 build:
 	mkdir -p bin

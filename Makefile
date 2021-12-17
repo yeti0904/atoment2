@@ -6,20 +6,20 @@ else
 CC   = g++
 endif
 src  = $(wildcard src/*.cc)
-args = -std=c++17 -Wall -Wextra -Werror -pedantic -o
+args = -std=c++17 -Wall -Wextra -Werror -pedantic
 out  = bin/atm
 
 build:
 	mkdir -p bin
-	$(CC) $(src) $(args) $(out) -s
+	$(CC) $(src) $(args) -o $(out) -s
 
 debug:
 	mkdir -p bin
-	$(CC) $(src) $(args) $(out) -g
+	$(CC) $(src) $(args) -o $(out) -g
 
 release:
 	mkdir -p bin
-	$(CC) $(src) $(args) $(out) -O3
+	$(CC) $(src) $(args) -o $(out) -O3
 
 clean:
 	rm -rf bin

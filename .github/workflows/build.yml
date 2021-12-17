@@ -1,0 +1,19 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      matrix:
+        os: [ubuntu, windows, macos]
+    steps:
+    - uses: actions/checkout@v2
+    - run: make release
+    - uses: actions/upload-artifact@v2
+      with:
+        name: build-${{ matrix.os }}
+        path: 'bin/*'

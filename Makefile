@@ -10,6 +10,9 @@ args = -std=c++17 -Wall -Wextra -Werror -pedantic
 ifneq ($(filter $(PLATFORM), windows win64 win32),)
 args += -static -static-libgcc -static-libstdc++
 endif
+ifeq ($(OS),Windows_NT)
+args += -static -static-libgcc -static-libstdc++
+endif
 out  = bin/atm
 
 build:

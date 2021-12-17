@@ -6,7 +6,7 @@ else
 CC   = g++
 endif
 src  = $(wildcard src/*.cc)
-args = -std=c++17 -Wall -Wextra -Werror -pedantic
+args = -std=c++17 -Wall -Wextra -Werror -pedantic -static -static-libgcc -static-libstdc++
 out  = bin/atm
 
 build:

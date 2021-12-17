@@ -110,7 +110,8 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 				column = 0;
 				break;
 			}
-			case ' ': {
+			case '\t':  // tab
+			case ' ': { // space
 				if (inString) {
 					reading += source[i];
 				}

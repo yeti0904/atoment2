@@ -93,13 +93,13 @@ void builtin_add(ATM::Language_Components& atm, ATM::Arglist args) {
 	}
 	ATM_Integer addby;
 	if (args[1].index() == 1) addby = get <ATM_Integer> (args[1]);
-	else addby = get<2>(args[1]).address;
+	else addby = get<ATM_Pointer>(args[1]).address;
 
 	if (args[0].index() == 1) { // source isn't a pointer, save the result in MEM_ACC
 		atm.stack[atm.variables["MEM_ACC"]] = get<ATM_Integer>(args[0]) + addby;
 	}
 	else { // source is a pointer, save the result where the pointer is pointing to
-		atm.stack[get<2>(args[0]).address] += addby;
+		atm.stack[get<ATM_Pointer>(args[0]).address] += addby;
 	}
 }
 
@@ -116,13 +116,13 @@ void builtin_sub(ATM::Language_Components& atm, ATM::Arglist args) {
 	}
 	ATM_Integer subby;
 	if (args[1].index() == 1) subby = get <ATM_Integer> (args[1]);
-	else subby = get<2>(args[1]).address;
+	else subby = get<ATM_Pointer>(args[1]).address;
 
 	if (args[0].index() == 1) { // source isn't a pointer, save the result in MEM_ACC
 		atm.stack[atm.variables["MEM_ACC"]] = get<ATM_Integer>(args[0]) - subby;
 	}
 	else { // source is a pointer, save the result where the pointer is pointing to
-		atm.stack[get<2>(args[0]).address] -= subby;
+		atm.stack[get<ATM_Pointer>(args[0]).address] -= subby;
 	}
 }
 
@@ -139,13 +139,13 @@ void builtin_mul(ATM::Language_Components& atm, ATM::Arglist args) {
 	}
 	ATM_Integer mulby;
 	if (args[1].index() == 1) mulby = get <ATM_Integer> (args[1]);
-	else mulby = get<2>(args[1]).address;
+	else mulby = get<ATM_Pointer>(args[1]).address;
 
 	if (args[0].index() == 1) { // source isn't a pointer, save the result in MEM_ACC
 		atm.stack[atm.variables["MEM_ACC"]] = get<ATM_Integer>(args[0]) * mulby;
 	}
 	else { // source is a pointer, save the result where the pointer is pointing to
-		atm.stack[get<2>(args[0]).address] *= mulby;
+		atm.stack[get<ATM_Pointer>(args[0]).address] *= mulby;
 	}
 }
 
@@ -162,12 +162,12 @@ void builtin_div(ATM::Language_Components& atm, ATM::Arglist args) {
 	}
 	ATM_Integer divby;
 	if (args[1].index() == 1) divby = get <ATM_Integer> (args[1]);
-	else divby = get<2>(args[1]).address;
+	else divby = get<ATM_Pointer>(args[1]).address;
 
 	if (args[0].index() == 1) { // source isn't a pointer, save the result in MEM_ACC
 		atm.stack[atm.variables["MEM_ACC"]] = (ATM_Integer)get<ATM_Integer>(args[0]) / divby;
 	}
 	else { // source is a pointer, save the result where the pointer is pointing to
-		atm.stack[get<2>(args[0]).address] = (ATM_Integer) atm.stack[get<2>(args[0]).address] / divby;
+		atm.stack[get<ATM_Pointer>(args[0]).address] = (ATM_Integer) atm.stack[get<2>(args[0]).address] / divby;
 	}
 }

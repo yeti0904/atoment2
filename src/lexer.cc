@@ -23,7 +23,18 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 			}
 			case ']':
 			case ';': { // end of statement
-				if ((!inString) && (reading[0] == '"') && (reading[reading.length()-1] == '"')) {
+				if ((tokens.size() == 0) || (tokens[tokens.size()-1].type == Lexer::TokenType::EndOfArguments)) {
+					if (!inString) {
+						tokens.push_back(Lexer::Token(Lexer::TokenType::Function, reading, line, column));
+						reading = "";
+					}
+					else {
+						reading += source[i];
+					}
+					tokens.push_back(Lexer::Token(Lexer::TokenType::EndOfArguments, "", line, column));
+					break;
+				}
+				else if ((!inString) && (reading[0] == '"') && (reading[reading.length()-1] == '"')) {
 					tokens.push_back(Lexer::Token(Lexer::TokenType::String, reading.substr(1, reading.length() - 2), line, column));
 				}
 				else if ((reading[0] == '\'') && (reading[reading.length()-1] == '\'')) {

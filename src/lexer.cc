@@ -149,10 +149,33 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 				}
 				break;
 			}
+			case '=': { // operator
+				Lexer::Token token(Lexer::TokenType::Operator, reading, line, column);
+				token.extrach = source[i];
+				tokens.push_back(token);
+				reading = "";
+				break;
+			}
 			default: {
 				reading += source[i];
 			}
 		}
 	}
 	return tokens;
+}
+
+string Lexer::ToString(Lexer::TokenType type) {
+	switch (type) {
+		case Lexer::TokenType::Function: return "Function";
+		case Lexer::TokenType::Keyword:  return "Keyword";
+		case Lexer::TokenType::String:   return "String";
+		case Lexer::TokenType::Number:   return "Number";
+		case Lexer::TokenType::Identifier: return "Identifier";
+		case Lexer::TokenType::EndOfArguments: return "EndOfArguments";
+		case Lexer::TokenType::EndOfFile: return "EndOfFile";
+		case Lexer::TokenType::Pointer: return "Pointer";
+		case Lexer::TokenType::Dereference: return "Dereference";
+		case Lexer::TokenType::Operator: return "Operator";
+	}
+	return ""; // this will literally not happen but gcc think it will so its here to make it happy
 }

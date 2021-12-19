@@ -1,2 +1,2 @@
-push: 5;
-pop: ;
+lol = 5;
+println: lol;

@@ -3,6 +3,7 @@
 #include "lexer.hh"
 #include "keywords.hh"
 #include "util.hh"
+#include "operators.hh"
 
 ATM::Arglist createArguments(uint32_t &i, vector <Lexer::Token> &tokens, ATM::Language_Components &atm) {
 	ATM::Arglist arglist;
@@ -48,8 +49,12 @@ ATM::Arglist createArguments(uint32_t &i, vector <Lexer::Token> &tokens, ATM::La
 				}
 				break;
 			}
+			case Lexer::TokenType::Operator: {
+				arglist.push_back(tokens[j].value);
+				break;
+			}
 			default: {
-				printf("Error: unexpected token %d in arguments list (index %d) at line %d col %d\n", (int)tokens[i].type, j, (int)tokens[j].line, (int)tokens[j].column);
+				printf("Error: unexpected token '%s' in arguments list (index %d) at line %d col %d\n", Lexer::ToString(tokens[j].type).c_str(), j, (int)tokens[j].line, (int)tokens[j].column);
 			}
 		}
 	}
@@ -85,6 +90,17 @@ void interpretTokens(vector <Lexer::Token> tokens, ATM::Language_Components& atm
 				}
 				else if (keyword.value == "delete") {
 					keyword_delete(atm, arglist);
+				}
+				break;
+			}
+			case Lexer::TokenType::Operator: {
+				switch (tokens[i].extrach) {
+					case '=': {
+						ATM_Integer ti = i - 1; // temp i
+						Operators::Equal(atm, createArguments(ti, tokens, atm));
+						i = ti;
+						break;
+					}
 				}
 				break;
 			}

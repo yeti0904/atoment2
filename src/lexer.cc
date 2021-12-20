@@ -116,6 +116,46 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 				reading += source[i];
 				break;
 			}
+			case '\\': { // string escape
+				if (inString) {
+					++ i;
+					switch (i) {
+						case 'n': {
+							reading += '\n';
+							break;
+						}
+						case 't': {
+							reading += '\t';
+							break;
+						}
+						case 'r': {
+							reading += '\r';
+							break;
+						}
+						case 'e': {
+							reading += '\x1b';
+							break;
+						}
+						case '\\': {
+							reading += '\\';
+							break;
+						}
+						case '\'': {
+							reading += '\'';
+							break;
+						}
+						case '"': {
+							reading += '"';
+							break;
+						}
+						default: {
+							printf("Error: invalid escape sequence '\\%c' at line %u Col %u\n", source[i], line, column);
+							exit(1);
+						}
+					}
+				}
+				break;
+			}
 			case '\n': { // new line
 				++ line;
 				column = 0;

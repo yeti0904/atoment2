@@ -21,6 +21,6 @@ namespace Lexer {
 		uint32_t  line, column;
 		Token(TokenType type, string value, size_t ln, size_t col) : type(type), value(value), line(ln), column(col) {}
 	};
-	vector <Token> tokenize(string source);
+	vector <Token> Tokenize(string source);
 	string ToString(TokenType type);
 }

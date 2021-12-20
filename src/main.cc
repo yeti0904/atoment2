@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
 	string file = FS::ReadFile(programpath);
 	
 	// lex the source code
-	vector <Lexer::Token> tokens = Lexer::tokenize(file);
+	vector <Lexer::Token> tokens = Lexer::Tokenize(file);
 	if (lexerDebug) {
 		for (size_t i = 0; i<tokens.size(); ++i) {
 			printf("{%d, %s, %d, %d}\n", (int)tokens[i].type, tokens[i].value.c_str(), tokens[i].line, tokens[i].column);

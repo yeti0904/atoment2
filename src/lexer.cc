@@ -2,7 +2,7 @@
 #include "lexer.hh"
 #include "util.hh"
 
-vector <Lexer::Token> Lexer::tokenize(string source) {
+vector <Lexer::Token> Lexer::Tokenize(string source) {
 	vector <Lexer::Token> tokens;
 	string                reading;
 	ATM_Integer           line = 1;

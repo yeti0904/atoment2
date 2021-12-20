@@ -119,7 +119,7 @@ vector <Lexer::Token> Lexer::tokenize(string source) {
 			case '\\': { // string escape
 				if (inString) {
 					++ i;
-					switch (i) {
+					switch (source[i]) {
 						case 'n': {
 							reading += '\n';
 							break;
